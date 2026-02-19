@@ -39,7 +39,7 @@ const resolutions = [
     }
 ];
 
-export function moveToChars(
+export function encodeMove(
     move: Dir,
     spawn: { value: number; x: number; y: number },
     ms: number | null
@@ -107,7 +107,7 @@ export function moveToChars(
         newChars[binary % 128];
 }
 
-export function charsToMove(chars: string) {
+export function parseChars(chars: string) {
     if (chars.length !== 3) throw new Error('Must have exactly 3 chars');
     const binary = 
         newChars.indexOf(chars[0]) * 16384 + 
@@ -196,7 +196,7 @@ export function oldToNew(chars: string) {
             spawnX = Math.floor(pos / 4);
             spawnY = pos % 4;
         }
-        newCode += moveToChars(move, {value, x: spawnX, y: spawnY}, null);
+        newCode += encodeMove(move, {value, x: spawnX, y: spawnY}, null);
     }
     return newCode;
 }
