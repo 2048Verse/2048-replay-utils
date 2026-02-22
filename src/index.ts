@@ -132,7 +132,7 @@ export function parseChars(chars: string) {
             throw new Error('Invalid move');
     }
     let value;
-    switch (Math.floor(binary / 4) % 2) {
+    switch (Math.floor(binary / 4) % 4) {
         case 0:
             value = 2;
             break;
