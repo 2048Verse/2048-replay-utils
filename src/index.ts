@@ -200,3 +200,23 @@ export function oldToNew(chars: string) {
     }
     return newCode;
 }
+
+// Board encoding
+export function encodeBoard(board: number[][]): string {
+    return board.flat().map(num => {
+        if (num === 0) return '0';
+        const value = Math.log(num) / Math.log(2);
+        return value >= 10 ? String.fromCharCode(value + 87) : value.toString();
+    }).join('');
+}
+export function decodeBoard(boardStr: string, width: number): number[][] {
+    return Array.from(boardStr).map(char => {
+        if (char === '0') return 0;
+        const value = char >= 'a' ? char.charCodeAt(0) - 87 : parseInt(char, 10);
+        return Math.pow(2, value);
+    }).reduce((rows, key, index) => {
+        if (index % width === 0) rows.push([]);
+        rows[rows.length - 1].push(key);
+        return rows;
+    }, [] as number[][]);
+}
